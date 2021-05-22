@@ -1,7 +1,7 @@
 {
   "name": "generator-dc",
   "version": "1.1.2",
-  "description": "",
+  "description": "react 项目快速开发脚手架",
   "scripts": {
     "test": "jest"
   },
