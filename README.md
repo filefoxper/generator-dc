@@ -6,7 +6,7 @@
 # 介绍
 
 `generator-dc`是一个react快速搭建脚手架项目，该项目依赖于 [yeoman](https://yeoman.io/learning/index.html) 。
-使用者可参考 API 生成一套可供快速开发的 react 脚手架，甚至在此基础上按规则生成`react-router`路由。
+使用者可参考 API 生成一套可供快速开发的 react web 项目，甚至在此基础上按规则生成`react-router`路由。
 该脚手架内部集成了一些相对有用的开发工具，可供选择，使用者可根据自身喜好直接修改这些工具。
 
 # 声明
