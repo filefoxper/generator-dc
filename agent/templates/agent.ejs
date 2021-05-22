@@ -1,0 +1,19 @@
+<% if (sharing) { %>
+import {OriginAgent, sharing} from "agent-reducer";
+<% } else if (weakSharing) { %>
+import {OriginAgent, weakSharing} from "agent-reducer";
+<% } else { %>
+import {OriginAgent} from "agent-reducer";
+<% } %>
+import {State} from "./type";
+
+export class <%= name %> implements OriginAgent<State> {
+
+    state: State = {};
+
+}
+<% if (sharing) { %>
+export const <%= lowerName %>Ref = sharing(()=><%= name %>);
+<% } else if (weakSharing) { %>
+export const <%= lowerName %>Ref = weakSharing(()=><%= name %>);
+<% } %>
