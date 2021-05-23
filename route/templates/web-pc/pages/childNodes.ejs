@@ -1,0 +1,8 @@
+import React from 'react';
+<% imports.forEach(function(data){ %>import <%= data.left %> from "./<%= data.right %>";
+<% }) %>
+
+export default [
+    <% imports.forEach(function(data){ %><<%= data.left %> path="<%= data.path %>" key="<%= data.path %>"/>,
+    <% }) %>
+]

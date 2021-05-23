@@ -1,0 +1,12 @@
+import React, {memo} from "react";
+import {SwitchWith404} from "@/components/layouts/route";
+import {RouteComponentProps} from "react-router";
+import childNodes from './childNodes';
+
+export default memo((props:RouteComponentProps)=>{
+    return (
+        <SwitchWith404>
+            {childNodes}
+        </SwitchWith404>
+    );
+});

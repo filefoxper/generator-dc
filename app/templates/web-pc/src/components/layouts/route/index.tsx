@@ -1,5 +1,5 @@
 import React, {Fragment, memo} from 'react';
-import {Redirect, RedirectProps, Route, RouteProps, Switch} from "react-router";
+import {Redirect, RedirectProps, Route, RouteComponentProps, RouteProps, Switch} from "react-router";
 import NoMatchedRoute from './NoMatched';
 
 export const RouteNode = memo(({path, to, children, ...props}: RouteProps & { to?: string }) => {
@@ -28,4 +28,11 @@ export const SwitchWith404 = memo(({children}) => {
     );
 });
 
+export const withRouteNode=(component:React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>,to?:string)=>{
+    return function RouteNodeComp({path}:{path:string}) {
+        return (
+            <RouteNode to={to} path={path} component={component}/>
+        );
+    }
+};
 
