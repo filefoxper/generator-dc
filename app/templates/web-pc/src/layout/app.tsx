@@ -7,10 +7,12 @@ import {Router} from "react-router";
 
 const historyMode = process.env.history;
 
+const basename = process.env.basename;
+
 export default memo(() => {
     return (
         <ConfigProvider locale={zh_CN}>
-            <Router history={instanceBy({mode: historyMode as 'h5' | 'hash'})}>
+            <Router history={instanceBy({mode: historyMode as 'h5' | 'hash',basename})}>
                 {/*添加app header*/}
                 <PageRoutes/>
                 {/*添加app footer*/}

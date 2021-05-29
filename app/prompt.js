@@ -54,6 +54,14 @@ const promptHistory = (promptValues) => {
     };
 };
 
+const promptBasename=()=>{
+    return {
+        type: 'input',
+        name: 'basename',
+        message: '请输入 basename'
+    };
+}
+
 const promptTools=(promptValues)=>{
     const {tools=[]}=promptValues;
     return {
@@ -76,8 +84,9 @@ const items=[
     'title',
     'output',
     // 'projectType',
-    'testMode',
+    'basename',
     'history',
+    'testMode',
     // 'tools'
 ];
 
@@ -85,6 +94,7 @@ const defaultPrompts=[
     promptTitle,
     // promptProjectType,
     promptOutput,
+    promptBasename,
     promptHistory,
     promptTestMode,
     // promptTools

@@ -1,4 +1,4 @@
-import {createBrowserHistory, createHashHistory, parsePath} from 'history';
+import {createBrowserHistory, createHashHistory} from 'history';
 import {stringify, parse} from "./locationQs";
 
 let history;

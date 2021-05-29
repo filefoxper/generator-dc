@@ -16,6 +16,7 @@ module.exports = class extends Generator {
         this.argument('path', {type: String, required: true});
         this.option('redirect');
         this.option('snake-case');
+        this.option('force');
     }
 
     initializing() {
@@ -71,7 +72,7 @@ module.exports = class extends Generator {
     };
 
     writeRoute = (pathArray, opt, lastPath, isStart) => {
-        const {redirect:isIndex} = opt;
+        const {redirect:isIndex,force} = opt;
         if (!pathArray.length) {
             this.writeRootRoute(opt, lastPath, isStart);
             return;
@@ -86,7 +87,7 @@ module.exports = class extends Generator {
             return;
         }
         const parentPath = this.getSourcePath(true);
-        if (!fs.existsSync(path.join(destDirPath, 'layout.tsx'))) {
+        if (!fs.existsSync(path.join(destDirPath, 'layout.tsx'))||force) {
             this.copyTo(path.join(parentPath, 'layout.ejs'), path.join(destDirPath, 'layout.tsx'));
         }
         if (isIndex && isStart) {

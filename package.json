@@ -1,9 +1,13 @@
 {
   "name": "generator-dc",
-  "version": "1.1.4",
+  "version": "1.1.7",
   "description": "react 项目快速开发脚手架",
   "scripts": {
     "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/filefoxper/generator-dc"
   },
   "files": [
     "app",

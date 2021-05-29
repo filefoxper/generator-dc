@@ -29,8 +29,8 @@
     "classnames": "^2.2.6",
     "lodash": "^4.17.15",
     "type-qs": "^1.4.1",
-    "agent-reducer": "^3.3.2",
-    "use-agent-reducer": "^3.3.0"
+    "agent-reducer": "^3.3.3",
+    "use-agent-reducer": "^3.3.2"
   },
   "devDependencies": {
     "@babel/core": "7.13.14",
@@ -97,7 +97,7 @@
     "tsconfig-paths-webpack-plugin": "^3.2.0",
     "webpack-api-mocker": "^1.7.6",
     "prettier": "^2.3.0",
-    "generator-dc": "1.1.4"
+    "generator-dc": "1.1.7"
   },
   "engines": {
     "node": ">=8.0.0"

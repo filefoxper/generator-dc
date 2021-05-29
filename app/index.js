@@ -36,15 +36,16 @@ module.exports = class extends Generator {
         if(this.extensions.lock){
             return;
         }
-        const {title, history,output} = await this.prompt(prompting({output:'../dist'}));
+        const {title, history,output,basename} = await this.prompt(prompting({output:'../dist'}));
         this.extensions.title = title;
         this.extensions.history = history;
         this.extensions.output = output;
+        this.extensions.basename = basename;
     }
 
     writeConfig = (fileName) => {
         const appName = this.appname;
-        const {projectType, title, history,output='../dist'} = this.extensions;
+        const {projectType, title, history, basename='', output='../dist'} = this.extensions;
         const fullAppName = appName.split(' ').join('-');
         if(fileName==='.gt'){
             this.fs.copyTpl(path.join(this.sourceRoot(), projectType, fileName), this.destinationPath('.gitignore'))
@@ -54,7 +55,8 @@ module.exports = class extends Generator {
             appName: fullAppName,
             title,
             history,
-            output
+            output,
+            basename
         });
     };
 

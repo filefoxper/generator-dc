@@ -109,6 +109,7 @@ http://[host]:[?port]/[?basename/]other-page/sub-page
 参数：
 1. --redirect: 指定当前路由为直接访问父路由时的默认转入子路由。
 2. --snake-case: 选择蛇形路由模式
+3. --force: 强制重写（对layout影响会比较大）
 
 ```
 /path/my$ yo dc:route /myPage --snake-case

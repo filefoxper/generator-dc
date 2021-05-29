@@ -1,12 +1,6 @@
 import axios, {AxiosRequestConfig} from 'axios';
-import {produce as pathProduce} from "@/utils/produce";
 import {getCookie} from "@/utils/cookie";
 import qs from 'qs';
-
-export interface Response {
-    status: number,
-    data: any
-}
 
 let restConfig: AxiosRequestConfig = {
     headers: {'X-Requested-With': 'XMLHttpRequest'},
@@ -34,6 +28,12 @@ function getErrorResponse({response}: any) {
         });
     }
     return Promise.reject(response);
+}
+
+function withContentType(config:AxiosRequestConfig,contentType:string):AxiosRequestConfig {
+    const {headers}=config;
+    const newHeaders={...headers,['Content-Type']:contentType}
+    return {...config,headers:newHeaders};
 }
 
 export const registerErrorInterceptor = (inter: (response: any) => void) => {
@@ -129,9 +129,10 @@ export class Rest {
 
     postForm(config?: AxiosRequestConfig) {
         const data = qs.stringify(this.requestBody);
-        const requestConfig = pathProduce(restConfig)
-            .assign(config || {})
-            .set(['headers', 'Content-Type'], 'application/x-www-form-urlencoded').get();
+        const requestConfig = withContentType(
+            {...restConfig,...(config||{})},
+            'application/x-www-form-urlencoded'
+        );
         return this.run(this.setRequestConfig('post', requestConfig, data))
             .then(getResponseData, getErrorResponse);
     }
@@ -140,9 +141,10 @@ export class Rest {
         const file=this.requestBody;
         let formData=new FormData();
         formData.append('file',file);
-        const requestConfig = pathProduce(restConfig)
-            .assign(config || {})
-            .set(['headers', 'Content-Type'], 'multipart/form-data').get();
+        const requestConfig = withContentType(
+            {...restConfig,...(config||{})},
+            'multipart/form-data'
+        );
         return this.run(this.setRequestConfig('post', requestConfig, formData))
             .then(getResponseData, getErrorResponse);
     }
