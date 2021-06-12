@@ -66,6 +66,8 @@ npm install -g generator-dc
 /path/my$ yo dc:route /myPage
 // 生成 react-router 路由及相关目录，并指定当前路由为 index redirect 路由
 /path/my$ yo dc:route /otherPage/subPage --redirect
+// 清除所有路由
+/path/my$ yo dc:route /
 ```
 
 生成目录：

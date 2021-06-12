@@ -1,0 +1,9 @@
+.idea/
+*.iml
+**/.DS_Store
+**/node_modules
+.settings/
+.project
+package-lock.json
+.vscode/
+.history/

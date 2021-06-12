@@ -1,6 +1,6 @@
 {
   "name": "generator-dc",
-  "version": "1.1.8",
+  "version": "1.2.0",
   "description": "react 项目快速开发脚手架",
   "scripts": {
     "test": "jest"
@@ -40,7 +40,7 @@
     "@types/react-router-dom": "^5.1.3",
     "agent-reducer": "^3.3.2",
     "antd": "3.26.2",
-    "axios": "^0.18.0",
+    "axios": "0.21.1",
     "classnames": "^2.2.6",
     "lodash": "^4.17.20",
     "moment": "^2.24.0",

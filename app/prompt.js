@@ -42,6 +42,23 @@ const promptOutput=(promptValues)=>{
     };
 }
 
+const promptUseRouter=()=>{
+    return {
+        type: 'confirm',
+        name: 'useRouter',
+        message: '是否使用 react-router 路由？'
+    };
+}
+
+const promptUseUnitTest=()=>{
+    return {
+        type: 'confirm',
+        name: 'useTest',
+        message: '是否添加单元测试？',
+        store:true
+    };
+}
+
 const promptHistory = (promptValues) => {
     const {history=History.H5}=promptValues;
     return {
@@ -58,7 +75,7 @@ const promptBasename=()=>{
     return {
         type: 'input',
         name: 'basename',
-        message: '请输入 basename'
+        message: '请输入 basename （直接敲回车，使用默认 basename，键默认为/）'
     };
 }
 
@@ -109,5 +126,12 @@ const prompting=(promptValues,promptFactories=defaultPrompts,filter=(c)=>c)=>{
 module.exports={
     prompting,
     defaultPrompts,
-    items
+    items,
+    promptTitle,
+    promptOutput,
+    promptUseRouter,
+    promptBasename,
+    promptHistory,
+    promptUseUnitTest,
+    promptTestMode
 }

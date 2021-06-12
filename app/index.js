@@ -1,7 +1,16 @@
 const Generator = require('yeoman-generator');
 const path = require('path');
 const fs = require('fs');
-const {prompting}=require('./prompt.js');
+const {
+    prompting,
+    promptTitle,
+    promptOutput,
+    promptUseRouter,
+    promptBasename,
+    promptHistory,
+    promptUseUnitTest,
+    promptTestMode
+} = require('./prompt.js');
 
 module.exports = class extends Generator {
 
@@ -9,7 +18,7 @@ module.exports = class extends Generator {
         autoInstall: true,
         projectType: 'web-pc',
         useGit: false,
-        lock:false
+        lock: false
     };
 
     constructor(args, opts) {
@@ -20,34 +29,66 @@ module.exports = class extends Generator {
 
     initializing() {
         const {lock} = this.config.getAll();
-        this.extensions.lock=lock;
-        if(this.extensions.lock){
+        this.extensions.lock = lock;
+        if (this.extensions.lock) {
             return;
         }
-        const git=this.options.git;
+        const git = this.options.git;
         const noInstall = this.options['skip-install'];
         this.extensions.autoInstall = !noInstall;
         this.extensions.useGit = git;
-        this.config.set('git',git);
+        this.config.set('git', git);
         this.log('欢迎使用dx-react');
     }
 
     async prompting() {
-        if(this.extensions.lock){
+        if (this.extensions.lock) {
             return;
         }
-        const {title, history,output,basename} = await this.prompt(prompting({output:'../dist'}));
+        const {title, output} = await this.prompt(
+            prompting(
+                {output: '../dist'},
+                [
+                    promptTitle,
+                    promptOutput
+                ]
+            )
+        );
         this.extensions.title = title;
-        this.extensions.history = history;
         this.extensions.output = output;
-        this.extensions.basename = basename;
+        const {useRouter}=await this.prompt([promptUseRouter()]);
+        if(useRouter){
+            const {history, basename} = await this.prompt(
+                prompting(
+                    {},
+                    [
+                        promptHistory,
+                        promptBasename
+                    ]
+                )
+            );
+            this.extensions.history = history;
+            this.extensions.basename = basename;
+            this.config.set('useRouter',true);
+        }else{
+            this.extensions.projectType='web-pc-simple';
+        }
+        const {testMode} = await this.prompt(
+            prompting(
+                {},
+                [
+                    promptTestMode
+                ]
+            )
+        );
+        this.extensions.testMode = testMode;
     }
 
     writeConfig = (fileName) => {
         const appName = this.appname;
-        const {projectType, title, history, basename='', output='../dist'} = this.extensions;
+        const {projectType, title, history, basename = '', output = '../dist'} = this.extensions;
         const fullAppName = appName.split(' ').join('-');
-        if(fileName==='.gt'){
+        if (fileName === '.gt') {
             this.fs.copyTpl(path.join(this.sourceRoot(), projectType, fileName), this.destinationPath('.gitignore'))
             return;
         }
@@ -74,13 +115,10 @@ module.exports = class extends Generator {
     }
 
     writing() {
-        if(this.extensions.lock){
+        if (this.extensions.lock) {
             return;
         }
         const {projectType} = this.extensions;
-        if (projectType === 'umi-pc') {
-            return;
-        }
         this.log('开始复制基本配置信息...');
         this.copyTemplate(path.join(this.sourceRoot(), projectType, 'src'), path.join(this.destinationRoot(), 'src'));
         this.copyTemplate(path.join(this.sourceRoot(), projectType, 'test'), path.join(this.destinationRoot(), 'test'));
@@ -89,28 +127,23 @@ module.exports = class extends Generator {
     }
 
     install() {
-        if(this.extensions.lock){
+        if (this.extensions.lock) {
             return;
         }
-        const {projectType,autoInstall} = this.extensions;
-        if (projectType === 'umi-pc') {
-            this.log('暂不支持umi模版...');
-            return;
-        }
-        if(!autoInstall){
+        const {autoInstall} = this.extensions;
+        if (!autoInstall) {
             return;
         }
         this.log('开始安装依赖包...');
         this.npmInstall();
-        this.log('安装依赖包结束...');
     }
 
     end() {
-        if(this.extensions.lock){
+        if (this.extensions.lock) {
             this.log('项目设置已经被锁定...');
             return;
         }
-        this.spawnCommand('prettier',['--write','.']);
+        this.spawnCommand('prettier', ['--write', '.']);
         if (!this.extensions.useGit) {
             return;
         }

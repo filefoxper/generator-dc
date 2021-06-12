@@ -99,8 +99,66 @@ module.exports = class extends Generator {
         this.writeRoute(nextPathArray, opt, currentPath);
     };
 
+    clearFolder=(destDirPath,root)=>{
+        if(!fs.existsSync(destDirPath)){
+            return;
+        }
+        if(fs.statSync(destDirPath).isFile()){
+            fs.unlinkSync(destDirPath);
+            return;
+        }
+        const list=fs.readdirSync(destDirPath);
+        if(!list.length&&!root){
+            fs.rmdirSync(destDirPath);
+            return;
+        }
+        list.forEach((f)=>{
+            this.clearFolder(path.join(destDirPath,f));
+        });
+    }
+
+    clearPages=()=>{
+        const destDirPath = path.join(this.destinationRoot(), 'src', 'pages');
+        this.clearFolder(destDirPath,true);
+    }
+
+    async prompting(){
+        const path_=this.options.path.trim();
+        if(path_==='/'){
+            const {clearRoutes}=await this.prompt([{
+                type: 'confirm',
+                name: 'clearRoutes',
+                message: '路由参数为 "/" 代表清理所有路由，是否继续？'
+            }]);
+            this.generatorConfig.clearRoutes = clearRoutes;
+        }
+    }
+
     writing() {
+        if(!this.config.get('useRouter')){
+            this.log('请先选择使用 react-router 路由...');
+            return;
+        }
         this.log('开始构建路径...');
+        if(this.generatorConfig.clearRoutes){
+            this.clearPages();
+            this.copyTo(
+                path.join(this.sourceRoot(), 'web-pc', 'pages', 'childNodes.ejs'),
+                path.join(this.destinationRoot(), 'src','pages', 'childNodes.tsx'),
+                {
+                    imports:[],
+                }
+            );
+            this.copyTo(
+                path.join(this.sourceRoot(), 'web-pc', 'pages', 'index.ejs'),
+                path.join(this.destinationRoot(),'src', 'pages', 'index.tsx'),
+                {
+                    redirectTo: ''
+                }
+            );
+            this.log('构建路径完毕...');
+            return;
+        }
         const path_ = this.options.path.trim();
         const pathArray = path_.split('/').filter((p) => p.trim());
         const relativePath = path.join('src', 'pages', ...pathArray);
