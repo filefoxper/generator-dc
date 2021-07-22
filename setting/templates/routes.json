@@ -1,0 +1,14 @@
+[
+  {
+    "path": "/home",
+    "redirect": true
+  },
+  {
+    "path": "/my"
+  },
+  {
+    "path": "/my/page",
+    "redirect": true
+  },
+  "simple"
+]

@@ -1,0 +1,7 @@
+import React, {memo} from "react";
+import {RouteComponentProps} from "react-router";
+import {Developing} from "@/components/layouts/container";
+
+export default memo((props:RouteComponentProps)=>{
+  return <Developing title="<%= dev %>"/>;
+});

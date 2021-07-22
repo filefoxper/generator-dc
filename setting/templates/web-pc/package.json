@@ -30,9 +30,9 @@
     "classnames": "^2.2.6",
     "lodash": "^4.17.15",
     "qs": "^6.10.1",
-    "type-qs": "^1.4.1",
-    "agent-reducer": "^3.3.3",
-    "use-agent-reducer": "^3.3.2"
+    "type-qs": "^2.1.0",
+    "agent-reducer": "^3.6.3",
+    "use-agent-reducer": "^3.6.0"
   },
   "devDependencies": {
     "@babel/core": "7.14.5",
@@ -90,7 +90,7 @@
     "webpack-dev-server": "3.11.2",
     "webpack-bundle-analyzer": "4.4.2",
     "prettier": "^2.3.0",
-    "generator-dc": "1.2.0"
+    "generator-dc": "2.0.0"
   },
   "engines": {
     "node": ">=8.0.0"

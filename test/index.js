@@ -40,7 +40,7 @@ module.exports = class extends Generator {
         if (!generatorConfig) {
             return;
         }
-        this.generatorConfig.testMode = generatorConfig.promptValues.testMode;
+        this.generatorConfig.testMode = this.config.get('testMode');
         this.generatorConfig.useGit = this.config.get('git');
     }
 

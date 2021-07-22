@@ -1,6 +1,6 @@
 {
   "name": "generator-dc",
-  "version": "1.2.0",
+  "version": "2.0.0",
   "description": "react 项目快速开发脚手架",
   "scripts": {
     "test": "jest"
@@ -38,7 +38,7 @@
     "@types/react-dom": "^16.8.4",
     "@types/react-router": "^5.1.3",
     "@types/react-router-dom": "^5.1.3",
-    "agent-reducer": "^3.3.2",
+    "agent-reducer": "^3.6.3",
     "antd": "3.26.2",
     "axios": "0.21.1",
     "classnames": "^2.2.6",
@@ -50,8 +50,8 @@
     "react-router": "^5.1.2",
     "react-router-dom": "^5.1.2",
     "redux": "^4.0.5",
-    "type-qs": "^1.3.1",
-    "use-agent-reducer": "^3.3.0"
+    "type-qs": "^2.1.0",
+    "use-agent-reducer": "^3.6.0"
   },
   "author": "filefoxper",
   "license": "ISC"

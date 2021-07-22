@@ -1,0 +1,6 @@
+import React from 'react';
+import {withRouteNode} from "@/components/layouts/route";
+import Layout from './layout';
+import routes from '@/routeConfig';
+
+export default withRouteNode(Layout, routes.<%= redirectTo %>.path);

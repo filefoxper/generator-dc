@@ -1,0 +1,9 @@
+import React from 'react';
+import routes from '@/routeConfig';
+<% imports.forEach(function(data){ %>import <%= data.left %> from "./<%= data.right %>";
+<% }) %>
+
+export default [
+<% imports.forEach(function(data){ %><<%= data.left %> path={routes.<%= data.path %>.path} key={routes.<%= data.path %>.path}/>,
+<% }) %>
+]

@@ -72,6 +72,7 @@ module.exports = class extends Generator {
             this.config.set('useRouter',true);
         }else{
             this.extensions.projectType='web-pc-simple';
+            this.config.set('useRouter',false);
         }
         const {testMode} = await this.prompt(
             prompting(
@@ -82,6 +83,7 @@ module.exports = class extends Generator {
             )
         );
         this.extensions.testMode = testMode;
+        this.config.set('testMode',testMode);
     }
 
     writeConfig = (fileName) => {

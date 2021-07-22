@@ -82,12 +82,15 @@ npm install -g generator-dc
             style.less      // less文件
         + otherPage -
             index.tsx
+            childNodes.tsx  // 二级子路由描述文件
             layout.tsx
             style.less
             + subPage -
                 index.tsx
                 layout.tsx
                 style.less
+        index.tsx           // 总路由
+        childNodes.tsx      // 一级子路由描述文件
 ```
 
 生成路由访问:
@@ -112,6 +115,7 @@ http://[host]:[?port]/[?basename/]other-page/sub-page
 1. --redirect: 指定当前路由为直接访问父路由时的默认转入子路由。
 2. --snake-case: 选择蛇形路由模式
 3. --force: 强制重写（对layout影响会比较大）
+4. --dev: 生成修饰页面
 
 ```
 /path/my$ yo dc:route /myPage --snake-case
@@ -121,6 +125,57 @@ http://[host]:[?port]/[?basename/]other-page/sub-page
 
 ```
 http://[host]:[?port]/[?basename/]my_page
+```
+
+命令：`dc:route [routes.json]` `[routes.json]`为当前项目根目录下的 json 文件名，用来描述希望生成的路由
+
+参数：
+1. --redirect: 指定当前路由为直接访问父路由时的默认转入子路由。
+2. --snake-case: 选择蛇形路由模式
+3. --force: 强制重写（对layout影响会比较大）
+4. --dev: 生成修饰页面
+
+路由描述文件
+```
+[
+  {
+    "path": "/myPage",
+    "redirect": true
+  },
+  "/other-page",
+  {
+    "path": "/other-page/sub-page",
+    "redirect": true
+  },
+  "/other-page/more-page",
+]
+```
+
+生成目录：
+
+```
++ src -
+    ...
+    + pages -
+        + myPage -
+            index.tsx       // 路由
+            layout.tsx      // 页面渲染
+            style.less      // less文件
+        + otherPage -
+            index.tsx
+            childNodes.tsx  // 二级子路由描述文件
+            layout.tsx
+            style.less
+            + morePage -
+                index.tsx
+                layout.tsx
+                style.less 
+            + subPage -
+                index.tsx
+                layout.tsx
+                style.less
+        index.tsx           // 总路由
+        childNodes.tsx      // 一级子路由描述文件
 ```
 
 ## 生成 agent-reducer 模型
@@ -364,3 +419,4 @@ http://[host]:[?port]/[?basename/]my_page
 参数：
 1. --lock: 锁定项目配置
 2. --unlock: 解锁项目配置
+3. --silent: 静默配置，不修改文件
